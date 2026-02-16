@@ -492,7 +492,7 @@ go test -timeout 30s ./...
 - **Questions**: Open a discussion on GitHub
 - **Bugs**: Open an issue with bug report template
 - **Features**: Open an issue with enhancement template
-- **Security**: Email security@example.com (do not open public issue)
+- **Security**: Email bilalbaraz@windowslive.com (do not open public issue)
 
 ## Recognition
 
