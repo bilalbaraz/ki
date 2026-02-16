@@ -41,7 +41,11 @@ func (c *Client) GetCharacters(page, limit int) (*CharactersResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch characters: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if cErr := resp.Body.Close(); err == nil {
+			err = cErr
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d", resp.StatusCode)
@@ -68,7 +72,11 @@ func (c *Client) GetPlanets(page, limit int) (*PlanetsResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch planets: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if cErr := resp.Body.Close(); err == nil {
+			err = cErr
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d", resp.StatusCode)
@@ -95,7 +103,11 @@ func (c *Client) GetCharacter(id int) (*Character, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch character: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if cErr := resp.Body.Close(); err == nil {
+			err = cErr
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d", resp.StatusCode)
@@ -122,7 +134,11 @@ func (c *Client) GetPlanet(id int) (*Planet, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch planet: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if cErr := resp.Body.Close(); err == nil {
+			err = cErr
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d", resp.StatusCode)
