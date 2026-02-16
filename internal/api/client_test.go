@@ -552,3 +552,215 @@ func TestGetPlanets_MultipleItems(t *testing.T) {
 		t.Errorf("expected 2 items, got %d", len(resp.Items))
 	}
 }
+
+func TestGetCharacters_RequestCreationError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{},
+		baseURL:    ":",
+	}
+
+	resp, err := client.GetCharacters(1, 10)
+	if err == nil {
+		t.Fatal("expected error for invalid URL, got nil")
+	}
+
+	if resp != nil {
+		t.Error("expected nil response on request creation error")
+	}
+}
+
+func TestGetPlanets_RequestCreationError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{},
+		baseURL:    ":",
+	}
+
+	resp, err := client.GetPlanets(1, 10)
+	if err == nil {
+		t.Fatal("expected error for invalid URL, got nil")
+	}
+
+	if resp != nil {
+		t.Error("expected nil response on request creation error")
+	}
+}
+
+func TestGetCharacter_RequestCreationError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{},
+		baseURL:    ":",
+	}
+
+	char, err := client.GetCharacter(1)
+	if err == nil {
+		t.Fatal("expected error for invalid URL, got nil")
+	}
+
+	if char != nil {
+		t.Error("expected nil character on request creation error")
+	}
+}
+
+func TestGetPlanet_RequestCreationError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{},
+		baseURL:    ":",
+	}
+
+	planet, err := client.GetPlanet(1)
+	if err == nil {
+		t.Fatal("expected error for invalid URL, got nil")
+	}
+
+	if planet != nil {
+		t.Error("expected nil planet on request creation error")
+	}
+}
+
+func TestGetCharacters_BodyCloseError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Content-Length", "1")
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	client := &Client{
+		httpClient: server.Client(),
+		baseURL:    server.URL,
+	}
+
+	_, err := client.GetCharacters(1, 10)
+	if err == nil {
+		t.Fatal("expected error for incomplete body, got nil")
+	}
+}
+
+func TestGetPlanets_BodyCloseError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Content-Length", "1")
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	client := &Client{
+		httpClient: server.Client(),
+		baseURL:    server.URL,
+	}
+
+	_, err := client.GetPlanets(1, 10)
+	if err == nil {
+		t.Fatal("expected error for incomplete body, got nil")
+	}
+}
+
+func TestGetCharacter_BodyCloseError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Content-Length", "1")
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	client := &Client{
+		httpClient: server.Client(),
+		baseURL:    server.URL,
+	}
+
+	_, err := client.GetCharacter(1)
+	if err == nil {
+		t.Fatal("expected error for incomplete body, got nil")
+	}
+}
+
+func TestGetPlanet_BodyCloseError(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Content-Length", "1")
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+
+	client := &Client{
+		httpClient: server.Client(),
+		baseURL:    server.URL,
+	}
+
+	_, err := client.GetPlanet(1)
+	if err == nil {
+		t.Fatal("expected error for incomplete body, got nil")
+	}
+}
+
+func TestGetCharacters_NetworkError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{
+			Timeout: 1 * time.Nanosecond,
+		},
+		baseURL: "http://unreachable-host-12345.test",
+	}
+
+	resp, err := client.GetCharacters(1, 10)
+	if err == nil {
+		t.Fatal("expected network error, got nil")
+	}
+
+	if resp != nil {
+		t.Error("expected nil response on network error")
+	}
+}
+
+func TestGetPlanets_NetworkError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{
+			Timeout: 1 * time.Nanosecond,
+		},
+		baseURL: "http://unreachable-host-12345.test",
+	}
+
+	resp, err := client.GetPlanets(1, 10)
+	if err == nil {
+		t.Fatal("expected network error, got nil")
+	}
+
+	if resp != nil {
+		t.Error("expected nil response on network error")
+	}
+}
+
+func TestGetCharacter_NetworkError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{
+			Timeout: 1 * time.Nanosecond,
+		},
+		baseURL: "http://unreachable-host-12345.test",
+	}
+
+	char, err := client.GetCharacter(1)
+	if err == nil {
+		t.Fatal("expected network error, got nil")
+	}
+
+	if char != nil {
+		t.Error("expected nil character on network error")
+	}
+}
+
+func TestGetPlanet_NetworkError(t *testing.T) {
+	client := &Client{
+		httpClient: &http.Client{
+			Timeout: 1 * time.Nanosecond,
+		},
+		baseURL: "http://unreachable-host-12345.test",
+	}
+
+	planet, err := client.GetPlanet(1)
+	if err == nil {
+		t.Fatal("expected network error, got nil")
+	}
+
+	if planet != nil {
+		t.Error("expected nil planet on network error")
+	}
+}
