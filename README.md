@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="ki-banner.jpg" alt="ki banner" width="1024" />
+</p>
+
 # 🐉 KI - Dragon Ball CLI TUI
 
 A beautiful Terminal User Interface (TUI) for exploring the Dragon Ball universe, built with Go and Bubble Tea.
