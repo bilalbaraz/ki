@@ -46,7 +46,7 @@ func TestGetCharacters_Success(t *testing.T) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(CharactersResponse{
+		_ = json.NewEncoder(w).Encode(CharactersResponse{
 			Items: []Character{
 				{ID: 1, Name: "Goku", Race: "Saiyan"},
 			},
@@ -107,7 +107,7 @@ func TestGetCharacters_InvalidJSON(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("invalid json"))
+		_, _ = w.Write([]byte("invalid json"))
 	}))
 	defer server.Close()
 
@@ -134,7 +134,7 @@ func TestGetPlanets_Success(t *testing.T) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(PlanetsResponse{
+		_ = json.NewEncoder(w).Encode(PlanetsResponse{
 			Items: []Planet{
 				{ID: 1, Name: "Earth", IsDestroyed: false},
 			},
@@ -199,7 +199,7 @@ func TestGetCharacter_Success(t *testing.T) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(Character{
+		_ = json.NewEncoder(w).Encode(Character{
 			ID:   1,
 			Name: "Goku",
 			Race: "Saiyan",
@@ -255,7 +255,7 @@ func TestGetPlanet_Success(t *testing.T) {
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(Planet{
+		_ = json.NewEncoder(w).Encode(Planet{
 			ID:          1,
 			Name:        "Namek",
 			IsDestroyed: false,
@@ -319,7 +319,7 @@ func TestGetCharacters_Pagination(t *testing.T) {
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
-				json.NewEncoder(w).Encode(CharactersResponse{
+				_ = json.NewEncoder(w).Encode(CharactersResponse{
 					Items: []Character{},
 					Meta: Meta{
 						CurrentPage:  tt.page,
@@ -361,7 +361,7 @@ func TestGetPlanets_Pagination(t *testing.T) {
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusOK)
-				json.NewEncoder(w).Encode(PlanetsResponse{
+				_ = json.NewEncoder(w).Encode(PlanetsResponse{
 					Items: []Planet{},
 					Meta: Meta{
 						CurrentPage:  tt.page,
@@ -392,7 +392,7 @@ func TestGetCharacter_InvalidJSON(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("{invalid}"))
+		_, _ = w.Write([]byte("{invalid}"))
 	}))
 	defer server.Close()
 
@@ -415,7 +415,7 @@ func TestGetPlanet_InvalidJSON(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("not json"))
+		_, _ = w.Write([]byte("not json"))
 	}))
 	defer server.Close()
 
@@ -446,7 +446,7 @@ func TestGetCharacters_EmptyResponse(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(CharactersResponse{
+		_ = json.NewEncoder(w).Encode(CharactersResponse{
 			Items: []Character{},
 			Meta:  Meta{},
 		})
@@ -472,7 +472,7 @@ func TestGetPlanets_EmptyResponse(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(PlanetsResponse{
+		_ = json.NewEncoder(w).Encode(PlanetsResponse{
 			Items: []Planet{},
 			Meta:  Meta{},
 		})
@@ -498,7 +498,7 @@ func TestGetCharacters_MultipleItems(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(CharactersResponse{
+		_ = json.NewEncoder(w).Encode(CharactersResponse{
 			Items: []Character{
 				{ID: 1, Name: "Goku"},
 				{ID: 2, Name: "Vegeta"},
@@ -528,7 +528,7 @@ func TestGetPlanets_MultipleItems(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(PlanetsResponse{
+		_ = json.NewEncoder(w).Encode(PlanetsResponse{
 			Items: []Planet{
 				{ID: 1, Name: "Earth"},
 				{ID: 2, Name: "Namek"},
