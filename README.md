@@ -6,6 +6,10 @@ A beautiful Terminal User Interface (TUI) for exploring the Dragon Ball universe
 ![Go Version](https://img.shields.io/badge/Go-1.25+-00ADD8?style=for-the-badge&logo=go)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
 
+[![CI](https://github.com/bilalbaraz/ki/workflows/CI/badge.svg)](https://github.com/bilalbaraz/ki/actions)
+[![codecov](https://codecov.io/gh/bilalbaraz/ki/branch/main/graph/badge.svg)](https://codecov.io/gh/bilalbaraz/ki)
+[![Go Report Card](https://goreportcard.com/badge/github.com/bilalbaraz/ki)](https://goreportcard.com/report/github.com/bilalbaraz/ki)
+
 ## 📋 Table of Contents
 
 - [Features](#-features)
